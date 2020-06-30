@@ -22,6 +22,18 @@ class _SignInState extends State<SignIn> {
             TextField(
               style: textFieldStyle(),
               decoration: inputTextDecoration('Password'),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              alignment: Alignment.centerRight,
+              child: Container(
+                child: Text(
+                  'Forget Password?',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
             )
           ],
         ),
