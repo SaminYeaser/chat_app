@@ -1,4 +1,6 @@
+import 'package:chat_app/helper/authenticate.dart';
 import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/views/signin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class ChatRoom extends StatefulWidget {
@@ -20,7 +22,7 @@ class _ChatRoomState extends State<ChatRoom> {
             onTap: (){
               authMethod.signOut();
               Navigator.pushReplacement(context, MaterialPageRoute(
-                builder: (context)=>
+                builder: (context)=>Authenticate()
               ));
             },
             child: Container(

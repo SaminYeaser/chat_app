@@ -4,6 +4,9 @@ import 'package:chat_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
+  final Function toogle;
+  SignUp(this.toogle);
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -153,12 +156,19 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          'Sign In',
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Colors.white,
-                              fontSize: 17),
+                        GestureDetector(
+                          onTap: (){
+                            widget.toogle();
+                          },
+                          child: Container(
+                            child: Text(
+                              'Sign In',
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: Colors.white,
+                                  fontSize: 17),
+                            ),
+                          ),
                         ),
                       ],
                     ),
