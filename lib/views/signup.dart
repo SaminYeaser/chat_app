@@ -1,4 +1,5 @@
 import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/views/chatRooms.dart';
 import 'package:chat_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,10 @@ class _SignUpState extends State<SignUp> {
       authMethod
           .signUpWithEmailAndPassword(emailTextEditingController.text,
               passwordTextEditingController.text).then((val){
-                print("${val.uid}");
+//                print("${val.uid}");
+                Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context)=> ChatRoom()
+                ));
       });
     }
   }
@@ -36,6 +40,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       appBar: appBarMain(context),
       body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 24),
         alignment: Alignment.bottomCenter,
         child: loading
             ? Container(

@@ -31,7 +31,7 @@ class AuthMethod {
       print(e.toString());
     }
   }
-  Future signOut(String email) async{
+  Future signOut() async{
     try{
       return await _auth.signOut();
     }catch(e){
