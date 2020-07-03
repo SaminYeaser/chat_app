@@ -1,6 +1,8 @@
+import 'package:chat_app/helper/database.dart';
 import 'package:chat_app/helper/helperFunction.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/widgets/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +17,9 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   AuthMethod authMethod = new AuthMethod();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
   bool loading = false;
+  QuerySnapshot snapShotUserInfo;
   final formkey = GlobalKey<FormState>();
   TextEditingController emailTextEditingController =
   new TextEditingController();
@@ -31,8 +35,13 @@ class _SignInState extends State<SignIn> {
         loading = true;
       });
 
+      databaseMethods.getUserByUserEmail(emailTextEditingController.text).then((val){
+        snapShotUserInfo = val;
+      });
+
       authMethod.signUpWithEmailAndPassword(emailTextEditingController.text, passwordTextEditingController.text).then((value){
         if(value!=null) {
+
           HelperFunction.saveUserLoggedInSharePreferences(true);
           Navigator.pushReplacement(context, MaterialPageRoute(
               builder: (context) => ChatRoom()
