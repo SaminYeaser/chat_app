@@ -31,7 +31,8 @@ class _SearchPersonState extends State<SearchPerson> {
           );
     }):Container();
   }
-  createChatRoomAndStartConvo(){
+  createChatRoomAndStartConvo(String userName){
+    List<String> users = [userName,];
     databaseMethods.createChatRoom(chatRoomID, chatRoomMap);
   }
   @override
