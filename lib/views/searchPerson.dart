@@ -6,6 +6,7 @@ class SearchPerson extends StatefulWidget {
 }
 
 class _SearchPersonState extends State<SearchPerson> {
+  TextEditingController searchTextEditingController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +22,7 @@ class _SearchPersonState extends State<SearchPerson> {
                 children: <Widget>[
                   Expanded(
                       child: TextField(
+                        controller: searchTextEditingController,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white
@@ -31,7 +33,20 @@ class _SearchPersonState extends State<SearchPerson> {
                         ),
                       )
                   ),
-                  Image.asset("assets/images/search_white.png")
+                  Container(
+                    height: 40,
+                      width: 40,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0x36FFFFFF),
+                            const Color(0x0FFFFFFF)
+                          ]
+                        ),
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Image.asset("assets/images/search_white.png"))
                 ],
               ),
             )
