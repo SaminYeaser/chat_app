@@ -31,15 +31,15 @@ class _SignInState extends State<SignIn> {
         loading = true;
       });
 
-      authMethod.signUpWithEmailAndPassword(emailTextEditingController.text, passwordTextEditingController.text);
-      HelperFunction.saveUserLoggedInSharePreferences(true).then((value){
+      authMethod.signUpWithEmailAndPassword(emailTextEditingController.text, passwordTextEditingController.text).then((value){
         if(value!=null) {
+          HelperFunction.saveUserLoggedInSharePreferences(true);
           Navigator.pushReplacement(context, MaterialPageRoute(
-
               builder: (context) => ChatRoom()
           ));
         }
       });
+
 
     }
   }
