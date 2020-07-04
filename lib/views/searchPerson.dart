@@ -1,5 +1,6 @@
 import 'package:chat_app/helper/constents.dart';
 import 'package:chat_app/helper/database.dart';
+import 'package:chat_app/helper/helperFunction.dart';
 import 'package:chat_app/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class SearchPerson extends StatefulWidget {
   @override
   _SearchPersonState createState() => _SearchPersonState();
 }
-
+String _myName;
 class _SearchPersonState extends State<SearchPerson> {
   TextEditingController searchTextEditingController = new TextEditingController();
   DatabaseMethods databaseMethods = new DatabaseMethods();
@@ -37,9 +38,9 @@ class _SearchPersonState extends State<SearchPerson> {
   }
 
   createChatRoomAndStartConvo({String userName}){
-    if(userName != Constants.MyName){
-      String chatRoomID = getChatRoomId(userName,Constants.MyName);
-      List<String> users = [userName,Constants.MyName];
+    if(userName != Constants.myName){
+      String chatRoomID = getChatRoomId(userName,Constants.myName);
+      List<String> users = [userName,Constants.myName];
       Map<String, dynamic> chatRoomMap = {
         'users' : users,
         'chatroomid' : chatRoomID
@@ -105,8 +106,15 @@ class _SearchPersonState extends State<SearchPerson> {
 
   @override
   void initState() {
-    initateSearch();
+
     super.initState();
+  }
+  getUserInfo() async{
+    _myName = await HelperFunction.getUserNameInSharePreferences();
+    setState(() {
+
+    });
+    print("${_myName}");
   }
   @override
   Widget build(BuildContext context) {
@@ -167,9 +175,10 @@ class _SearchPersonState extends State<SearchPerson> {
 
 
 getChatRoomId(String a, String b){
-  if(a.substring(0,1).codeUnitAt(0)>b.substring(0,1).codeUnitAt(0)){
+  if(a.compareTo(b)>0){
     return "$b\_$a";
   }else{
     return "$a\_$b";
   }
 }
+//substring(0,1).codeUnitAt(0)>b.substring(0,1).codeUnitAt(0)

@@ -20,7 +20,11 @@ class _ChatRoomState extends State<ChatRoom> {
     super.initState();
   }
   getUserInfo() async{
-    Constants.MyName = await HelperFunction.getUserNameInSharePreferences();
+    Constants.myName = await HelperFunction.getUserNameInSharePreferences();
+    setState(() {
+
+    });
+
   }
   @override
   Widget build(BuildContext context) {

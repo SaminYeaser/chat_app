@@ -31,14 +31,15 @@ class _SignInState extends State<SignIn> {
 
       HelperFunction.saveUserEmailInSharePreferences(emailTextEditingController.text);
 
+      databaseMethods.getUserByUserEmail(emailTextEditingController.text).then((val){
+        snapShotUserInfo = val;
+        HelperFunction.saveUserNameInSharePreferences(snapShotUserInfo.documents[0].data['name']);
+      });
+
       setState(() {
         loading = true;
       });
 
-      databaseMethods.getUserByUserEmail(emailTextEditingController.text).then((val){
-        snapShotUserInfo = val;
-        HelperFunction.saveUserEmailInSharePreferences(snapShotUserInfo.documents[0].data['name']);
-      });
 
       authMethod.signUpWithEmailAndPassword(emailTextEditingController.text, passwordTextEditingController.text).then((value){
         if(value!=null) {
@@ -82,6 +83,7 @@ class _SignInState extends State<SignIn> {
                         decoration: inputTextDecoration('Email'),
                       ),
                       TextFormField(
+                        obscureText: true,
                         validator: (val) {
                           return val.length < 6
                               ? "Your password should be longer than 6+"
@@ -111,7 +113,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 GestureDetector(
                   onTap: (){
-
+                    signIn();
                   },
                   child: Container(
                     alignment: Alignment.center,
