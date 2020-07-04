@@ -1,3 +1,4 @@
+import 'package:chat_app/helper/constents.dart';
 import 'package:chat_app/helper/database.dart';
 import 'package:chat_app/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -32,8 +33,16 @@ class _SearchPersonState extends State<SearchPerson> {
     }):Container();
   }
   createChatRoomAndStartConvo(String userName){
-    List<String> users = [userName,];
+    String chatRoomID = getChatRoomId(userName,Constants.MyName);
+    List<String> users = [userName,Constants.MyName];
+    Map<String, dynamic> chatRoomMap = {
+      'users' : users,
+      'chatroomid' : chatRoomID
+    };
     databaseMethods.createChatRoom(chatRoomID, chatRoomMap);
+    Navigator.pushReplacement(context, MaterialPageRoute(
+      builder: (context)=> Conversation();
+    ));
   }
   @override
   void initState() {
@@ -148,5 +157,12 @@ class SearchTile extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+getChatRoomId(String a, String b){
+  if(a.substring(0,1).codeUnitAt(0)>b.substring(0,1).codeUnitAt(0)){
+    return "$b\_$a";
+  }else{
+    return "$a\_$b";
   }
 }
