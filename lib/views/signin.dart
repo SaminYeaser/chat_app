@@ -31,17 +31,19 @@ class _SignInState extends State<SignIn> {
 
       HelperFunction.saveUserEmailInSharePreferences(emailTextEditingController.text);
 
+
       databaseMethods.getUserByUserEmail(emailTextEditingController.text).then((val){
         snapShotUserInfo = val;
         HelperFunction.saveUserNameInSharePreferences(snapShotUserInfo.documents[0].data['name']);
       });
 
+
+
       setState(() {
         loading = true;
       });
 
-
-      authMethod.signUpWithEmailAndPassword(emailTextEditingController.text, passwordTextEditingController.text).then((value){
+      authMethod.signInWithEmailandPassword(emailTextEditingController.text, passwordTextEditingController.text).then((value){
         if(value!=null) {
 
           HelperFunction.saveUserLoggedInSharePreferences(true);

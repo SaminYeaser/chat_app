@@ -42,18 +42,9 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: userIsLoggedIn ? ChatRoom(): Authenticate()
+      home: userIsLoggedIn ?Authenticate() : ChatRoom()
+
     );
   }
 }
-class IamBlank extends StatefulWidget {
-  @override
-  _IamBlankState createState() => _IamBlankState();
-}
 
-class _IamBlankState extends State<IamBlank> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

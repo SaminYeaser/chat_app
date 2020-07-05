@@ -41,9 +41,6 @@ class _SignUpState extends State<SignUp> {
 
       authMethod.signUpWithEmailAndPassword(emailTextEditingController.text,
               passwordTextEditingController.text).then((val){
-//                print("${val.uid}");
-
-
        databaseMethods.uploadUserFunction(userInfoMap);
        HelperFunction.saveUserLoggedInSharePreferences(true);
                 Navigator.pushReplacement(context, MaterialPageRoute(

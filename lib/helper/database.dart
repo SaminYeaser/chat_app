@@ -5,7 +5,7 @@ class DatabaseMethods{
        return await Firestore.instance.collection('users').where("name", isEqualTo: username).getDocuments();
      }
      getUserByUserEmail(String email) async{
-       return await Firestore.instance.collection('users').where("email", isEqualTo: email).getDocuments();
+       return await Firestore.instance.collection("users").where("email", isEqualTo: email).getDocuments();
      }
      uploadUserFunction(userMap){
        Firestore.instance.collection("users").add(userMap);
@@ -15,4 +15,5 @@ class DatabaseMethods{
          print(e.toString());
        });
      }
+
 }

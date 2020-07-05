@@ -38,6 +38,7 @@ class _SearchPersonState extends State<SearchPerson> {
   }
 
   createChatRoomAndStartConvo({String userName}){
+    print("${Constants.myName}");
     if(userName != Constants.myName){
       String chatRoomID = getChatRoomId(userName,Constants.myName);
       List<String> users = [userName,Constants.myName];
@@ -106,7 +107,7 @@ class _SearchPersonState extends State<SearchPerson> {
 
   @override
   void initState() {
-
+    getUserInfo();
     super.initState();
   }
   getUserInfo() async{
