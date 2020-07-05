@@ -14,18 +14,43 @@ class _ConversationState extends State<Conversation> {
   TextEditingController messageController = new TextEditingController();
 
 DatabaseMethods databaseMethods = new DatabaseMethods();
+Stream chatMessagesValue;
 
   Widget ChatMessageList(){
-
+  return StreamBuilder(
+    stream: chatMessagesValue,
+    builder: (context, snapshot){
+      return ListView.builder(
+          itemCount: snapshot.data.documents.length,
+          itemBuilder: (context, index){
+            return MessageTile(
+              snapshot.data.documents[index].data['message']
+            );
+      },
+      );
+    },
+  );
   }
   sendMessages(){
     if(messageController.text.isNotEmpty){
-      Map<String, String> messageMap = {
+      Map<String, dynamic> messageMap = {
         "message": messageController.text,
-        "sendBy": Constants.myName
+        "sendBy": Constants.myName,
+        "time": DateTime.now().millisecondsSinceEpoch
       };
       databaseMethods.addConversationMessages(widget.chatRoomId, messageMap);
+      messageController.text = '';
     }
+  }
+  @override
+  void initState() {
+    databaseMethods.getConversationMessages(widget.chatRoomId).then((value){
+      setState(() {
+        chatMessagesValue = value;
+      });
+
+    });
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -34,6 +59,7 @@ DatabaseMethods databaseMethods = new DatabaseMethods();
       body: Container(
         child: Stack(
           children: <Widget>[
+            ChatMessageList(),
             Container(
               alignment: Alignment.bottomCenter,
               child:Container(
@@ -80,6 +106,16 @@ DatabaseMethods databaseMethods = new DatabaseMethods();
           ],
         ),
       ),
+    );
+  }
+}
+class MessageTile extends StatelessWidget {
+  final String message;
+  MessageTile(this.message);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(message),
     );
   }
 }
