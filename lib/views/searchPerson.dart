@@ -49,7 +49,7 @@ class _SearchPersonState extends State<SearchPerson> {
       DatabaseMethods().createChatRoom(chatRoomID, chatRoomMap);
 
       Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context)=> Conversation()
+          builder: (context)=> Conversation(chatRoomID)
       ));
     }else{
       print('You can not send message to yourself');
